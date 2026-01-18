@@ -654,7 +654,7 @@ window_tree_draw_session(struct window_tree_modedata *data, struct session *s,
 			width = each - 1;
 
 		screen_write_cursormove(ctx, cx + offset, cy, 0);
-		screen_write_preview(ctx, &w->active->base, width, sy);
+		screen_write_preview(ctx, &w->active->base, width, sy, s);
 
 		xasprintf(&label, " %u:%s ", wl->idx, w->name);
 		if (strlen(label) > width) {
@@ -788,7 +788,7 @@ window_tree_draw_window(struct window_tree_modedata *data, struct session *s,
 			width = each - 1;
 
 		screen_write_cursormove(ctx, cx + offset, cy, 0);
-		screen_write_preview(ctx, &wp->base, width, sy);
+		screen_write_preview(ctx, &wp->base, width, sy, s);
 
 		if (window_pane_index(wp, &pane_idx) != 0)
 			pane_idx = loop;
@@ -830,7 +830,7 @@ window_tree_draw(void *modedata, void *itemdata, struct screen_write_ctx *ctx,
 		window_tree_draw_window(modedata, sp, wlp->window, ctx, sx, sy);
 		break;
 	case WINDOW_TREE_PANE:
-		screen_write_preview(ctx, &wp->base, sx, sy);
+		screen_write_preview(ctx, &wp->base, sx, sy, sp);
 		break;
 	}
 }

@@ -5201,6 +5201,19 @@ and
 .Ql heavy
 will fall back to standard ACS line drawing when UTF-8 is not supported.
 .Pp
+.It Ic preview-anchor Op Ic top | bottom | cursor
+Set the position of the preview in choose mode.
+If set to
+.Ic top ,
+the top of the pane is shown (default);
+if
+.Ic bottom ,
+the bottom is shown;
+if
+.Ic cursor ,
+the preview follows the cursor.
+The cursor mode is automatically enabled if the pane cursor is visible.
+.Pp
 .It Xo Ic pane-scrollbars
 .Op Ic off | modal | on
 .Xc

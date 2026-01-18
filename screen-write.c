@@ -820,20 +820,23 @@ screen_write_box(struct screen_write_ctx *ctx, u_int nx, u_int ny,
  */
 void
 screen_write_preview(struct screen_write_ctx *ctx, struct screen *src, u_int nx,
-    u_int ny)
+    u_int ny, struct session *sess)
 {
 	struct screen		*s = ctx->s;
 	struct grid_cell	 gc;
 	u_int			 cx, cy, px, py;
+	long long		 preview_anchor;
 
 	cx = s->cx;
 	cy = s->cy;
 
 	/*
 	 * If the cursor is on, pick the area around the cursor, otherwise use
-	 * the top left.
+	 * the preview-anchor option.
 	 */
-	if (src->mode & MODE_CURSOR) {
+	if ((src->mode & MODE_CURSOR) || (sess != NULL &&
+	    options_get_number(sess->options, "preview-anchor") == 2)) {
+		/* Cursor or cursor anchor */
 		px = src->cx;
 		if (px < nx / 3)
 			px = 0;
@@ -856,7 +859,16 @@ screen_write_preview(struct screen_write_ctx *ctx, struct screen *src, u_int nx,
 			else
 				py = screen_size_y(src) - ny;
 		}
+	} else if (sess != NULL &&
+	    options_get_number(sess->options, "preview-anchor") == 1) {
+		/* Bottom anchor */
+		px = 0;
+		if (screen_size_y(src) > ny)
+			py = screen_size_y(src) - ny;
+		else
+			py = 0;
 	} else {
+		/* Top anchor (default) */
 		px = 0;
 		py = 0;
 	}

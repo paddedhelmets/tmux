@@ -232,7 +232,7 @@ window_client_draw(__unused void *modedata, void *itemdata,
 		at = 0;
 
 	screen_write_cursormove(ctx, cx, cy + at, 0);
-	screen_write_preview(ctx, &wp->base, sx, sy - 2 - lines);
+	screen_write_preview(ctx, &wp->base, sx, sy - 2 - lines, c->session);
 
 	if (at != 0)
 		screen_write_cursormove(ctx, cx, cy + 2, 0);

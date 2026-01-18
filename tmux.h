@@ -3148,7 +3148,7 @@ void	 screen_write_menu(struct screen_write_ctx *, struct menu *, int,
 void	 screen_write_box(struct screen_write_ctx *, u_int, u_int,
              enum box_lines, const struct grid_cell *, const char *);
 void	 screen_write_preview(struct screen_write_ctx *, struct screen *, u_int,
-	     u_int);
+	     u_int, struct session *);
 void	 screen_write_backspace(struct screen_write_ctx *);
 void	 screen_write_mode_set(struct screen_write_ctx *, int);
 void	 screen_write_mode_clear(struct screen_write_ctx *, int);

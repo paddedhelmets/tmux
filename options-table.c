@@ -108,6 +108,9 @@ static const char *options_table_extended_keys_format_list[] = {
 static const char *options_table_allow_passthrough_list[] = {
 	"off", "on", "all", NULL
 };
+static const char *options_table_preview_anchor_list[] = {
+	"top", "bottom", "cursor", NULL
+};
 
 /* Status line format. */
 #define OPTIONS_TABLE_STATUS_FORMAT1 \
@@ -1386,6 +1389,16 @@ const struct options_table_entry options_table[] = {
 	  .default_num = BOX_LINES_SINGLE,
 	  .text = "Type of characters used to draw popup border lines. Some of "
 		  "these are only supported on terminals with UTF-8 support."
+	},
+
+	{ .name = "preview-anchor",
+	  .type = OPTIONS_TABLE_CHOICE,
+	  .scope = OPTIONS_TABLE_SESSION,
+	  .choices = options_table_preview_anchor_list,
+	  .default_num = 0,
+	  .text = "Position of the preview in choose mode. If 'top', the top "
+		  "of the pane is shown; if 'bottom', the bottom; if 'cursor', "
+		  "the preview follows the cursor."
 	},
 
 	{ .name = "remain-on-exit",
